@@ -209,7 +209,7 @@
           <div class="summary">
             <div>
               <strong>Core Functionality</strong>
-              Precise and approximate location sharing within approved family groups. Optional SMS fallback when data service is unavailable. No advertising or profiling.
+              Precise and approximate location sharing within approved family groups. No advertising or profiling.
             </div>
             <div>
               <strong>Data Safety</strong>
@@ -247,7 +247,7 @@
             <tbody>
               <tr>
                 <td data-label="Category">Location Data</td>
-                <td data-label="Fields">GPS/network latitude &amp; longitude, altitude, speed, heading, accuracy, timestamp, source channel (foreground, background, WorkManager, Firebase, SMS), family group ID.</td>
+                <td data-label="Fields">GPS/network latitude &amp; longitude, altitude, speed, heading, accuracy, timestamp, source channel (foreground, background, WorkManager, Firebase), family group ID.</td>
                 <td data-label="Purpose">Enable real-time sharing, respond to location requests, generate history, and improve reliability alerts.</td>
                 <td data-label="Storage &amp; Retention">Stored in Firebase Cloud Firestore collections (<code>family_groups</code>, <code>location_requests</code>, <code>location_responses</code>) for up to 30 days with automatic cleanup jobs; device SharedPreferences retain the last 24 hours by default (configurable 1–365 days) and up to 30 days of history; all transmission is over HTTPS/TLS.</td>
                 <td data-label="User Controls">Pause sharing from the home screen; toggle foreground/background sharing in Settings; clear history per contact or globally; leaving the group or uninstalling stops uploads.</td>
@@ -259,17 +259,10 @@
                 <td data-label="Storage &amp; Retention">Firebase Cloud Firestore (<code>family_groups/&lt;groupId&gt;/members</code>). Removed immediately when a device leaves the group or is manually deleted; inactive records are cleared by maintenance tasks.</td>
                 <td data-label="User Controls">Manage members or leave the group in-app; reinstalling the app generates a new device ID.</td>
               </tr>
-              <tr>
-                <td data-label="Category">SMS Fallback Locations</td>
-                <td data-label="Fields">Trigger phone number, coordinates parsed from SMS, accuracy, timestamp, text snippet (max 60 characters, sanitized).</td>
-                <td data-label="Purpose">Display coordinates sent via SMS when mobile data is unavailable.</td>
-                <td data-label="Storage &amp; Retention">Stored only on-device in SharedPreferences. Default retention 24 hours, adjustable to 1–365 days or deletable at any time. Not uploaded to servers.</td>
-                <td data-label="User Controls">Requires explicit SMS permissions; toggle parsing and clear records in the SMS panel or revoke permissions in system settings.</td>
-              </tr>
-              <tr>
+                <tr>
                 <td data-label="Category">Family Contacts</td>
                 <td data-label="Fields">Contact name and phone number entered by you, internal contact ID.</td>
-                <td data-label="Purpose">Quick selection for location requests or SMS fallback and for number matching.</td>
+                <td data-label="Purpose">Quick selection for location requests and for number matching.</td>
                 <td data-label="Storage &amp; Retention">Stored only in device SharedPreferences. Optional export to a user-selected JSON file; never uploaded.</td>
                 <td data-label="User Controls">Add, edit, delete, or clear contacts from the in-app manager; remove exported files manually.</td>
               </tr>
@@ -297,7 +290,7 @@
         <section id="how-we-use-en">
           <h2>How We Use Data</h2>
           <ul>
-            <li>Deliver core features: real-time sharing, history, group management, notifications, SMS fallback, multi-language UI.</li>
+            <li>Deliver core features: real-time sharing, history, group management, notifications, multi-language UI.</li>
             <li>Improve reliability: adjust service mode (foreground service, WorkManager, Firebase) based on task telemetry and device info.</li>
             <li>Security and abuse prevention: detect abnormal request rates, invalid tokens, or suspected fraud and take action.</li>
             <li>Customer support: analyze logs with your consent to reproduce issues and provide help.</li>
@@ -337,14 +330,9 @@
                 <td data-label="Purpose">Run a persistent notification while continuous tracking is active.</td>
                 <td data-label="Optionality &amp; Controls">Required for reliable background updates. The notification always includes a stop action.</td>
               </tr>
-              <tr>
-                <td data-label="Permission">SEND_SMS, RECEIVE_SMS, READ_SMS (optional)</td>
-                <td data-label="Purpose">Enable SMS fallback to send/parse coordinates if data connectivity fails.</td>
-                <td data-label="Optionality &amp; Controls">Disabled by default; only used after you opt in and grant permission. You can disable the feature or revoke permissions any time.</td>
-              </tr>
-              <tr>
+                <tr>
                 <td data-label="Permission">POST_NOTIFICATIONS (Android 13+)</td>
-                <td data-label="Purpose">Show foreground-service status, location request prompts, and SMS parsing alerts.</td>
+                <td data-label="Purpose">Show foreground-service status and location request prompts.</td>
                 <td data-label="Optionality &amp; Controls">You may decline notifications; the app continues to function but without alerts. Manageable in system settings.</td>
               </tr>
               <tr>
@@ -366,7 +354,7 @@
           <ul>
             <li><strong>Access &amp; copies</strong>: Review recent locations inside the app. Contact support to request an export of server-side records; we respond within 30 days.</li>
             <li><strong>Correction</strong>: Edit nicknames, device names, and contacts in-app. Ask support to correct any server data.</li>
-            <li><strong>Deletion</strong>: Clear local history/SMS logs, leave a group, uninstall the app, or request full deletion via support.</li>
+            <li><strong>Deletion</strong>: Clear local history, leave a group, uninstall the app, or request full deletion via support.</li>
             <li><strong>Permission management</strong>: Use system settings or the in-app privacy center to revoke granted permissions.</li>
             <li><strong>Portability</strong>: Export contacts as JSON. Contact support for additional exports.</li>
           </ul>
@@ -410,6 +398,33 @@
           <p>We will update this policy when features or laws change. Major updates appear as in-app notices or changelog entries. Continued use of the app after the effective date constitutes acceptance.</p>
         </section>
 
+        <section id="data-deletion-en">
+          <h2>Data Deletion Request</h2>
+          <p><strong>How to request deletion of your data:</strong></p>
+          <ol>
+            <li>Send an email to: <strong><a href="mailto:famliyfinder.home22@gmail.com">famliyfinder.home22@gmail.com</a></strong></li>
+            <li>Email subject: <strong>Family Finder - Data Deletion Request</strong></li>
+            <li>Email content must include:
+              <ul>
+                <li>Your family group ID</li>
+                <li>Specific data types you want deleted</li>
+                <li>Confirmation of deletion request</li>
+              </ul>
+            </li>
+          </ol>
+
+          <h3>Data Types That Will Be Deleted</h3>
+          <ul>
+            <li>Location history records</li>
+            <li>Family member contact information</li>
+            <li>Device identifiers and push tokens</li>
+            <li>App settings and preferences</li>
+          </ul>
+
+          <h3>Processing Time</h3>
+          <p>We will process your deletion request within <strong>7 days</strong> of receipt. Once deleted, your data cannot be recovered.</p>
+        </section>
+
         <section id="contact-en">
           <h2>Contact Us</h2>
           <p>If you have privacy questions, complaints, or requests, reach us at:</p>
@@ -432,7 +447,7 @@
           <div class="summary">
             <div>
               <strong>核心功能</strong>
-              精确/近似定位仅在经授权的家庭成员之间共享，提供数据网络中断时的短信备用通道，无广告或画像分析。
+              精确/近似定位仅在经授权的家庭成员之间共享，无广告或画像分析。
             </div>
             <div>
               <strong>数据安全</strong>
@@ -470,7 +485,7 @@
             <tbody>
               <tr>
                 <td data-label="类别">定位数据</td>
-                <td data-label="字段">GPS/网络经纬度、海拔、速度、方向、精度、时间戳、来源通道（前台、后台、WorkManager、Firebase、短信）、家庭组 ID。</td>
+                <td data-label="字段">GPS/网络经纬度、海拔、速度、方向、精度、时间戳、来源通道（前台、后台、WorkManager、Firebase）、家庭组 ID。</td>
                 <td data-label="用途">实现实时共享、响应定位请求、生成历史记录、优化可靠性提醒。</td>
                 <td data-label="存储与保留">保存于 Firebase Cloud Firestore（<code>family_groups</code>、<code>location_requests</code>、<code>location_responses</code>）不超过 30 天并通过任务清理；本地 SharedPreferences 默认保存最近 24 小时（可调 1–365 天）及最多 30 天历史；所有传输均经 HTTPS/TLS。</td>
                 <td data-label="用户控制">首页快速暂停；设置中可切换前台/后台共享；历史界面支持按联系人或全部删除；退出群组或卸载后即停止上传。</td>
@@ -482,17 +497,10 @@
                 <td data-label="存储与保留">Firebase Cloud Firestore（<code>family_groups/&lt;groupId&gt;/members</code>）。设备退出或被移除后立即删除；长期不活跃会触发清理。</td>
                 <td data-label="用户控制">可在应用中移除成员或退出群组；重新安装会生成新设备 ID。</td>
               </tr>
-              <tr>
-                <td data-label="类别">短信备用定位</td>
-                <td data-label="字段">触发号码、短信中解析的坐标、精度、时间戳、最多 60 字符的净化文本片段。</td>
-                <td data-label="用途">在数据网络不可用时，通过短信坐标补充定位信息。</td>
-                <td data-label="存储与保留">仅保存在本地 SharedPreferences，默认 24 小时，可在 1–365 天间调整或随时清除；不会上传服务器。</td>
-                <td data-label="用户控制">需手动授予短信权限；可在短信定位面板停用解析、清空记录，或在系统设置撤回权限。</td>
-              </tr>
-              <tr>
+                <tr>
                 <td data-label="类别">家庭联系人</td>
                 <td data-label="字段">您手动录入的联系人姓名与电话号码、内部联系人 ID。</td>
-                <td data-label="用途">便于发送定位请求或短信备用，并用于号码匹配。</td>
+                <td data-label="用途">便于发送定位请求并用于号码匹配。</td>
                 <td data-label="存储与保留">仅存储在设备 SharedPreferences；可导出为 JSON 文件（路径由您选择）；不上传。</td>
                 <td data-label="用户控制">联系人管理支持新增、编辑、删除与清空；导出文件可自行删除。</td>
               </tr>
@@ -520,7 +528,7 @@
         <section id="how-we-use-zh">
           <h2>数据用途</h2>
           <ul>
-            <li>提供核心功能：实时共享、历史轨迹、群组管理、通知提醒、短信备用、多语言界面。</li>
+            <li>提供核心功能：实时共享、历史轨迹、群组管理、通知提醒、多语言界面。</li>
             <li>提升可靠性：根据任务执行与设备信息动态选择前台服务、WorkManager、Firebase 等通道。</li>
             <li>安全与防滥用：发现异常请求频率、无效令牌或疑似欺诈并采取限制。</li>
             <li>客户支持：在您授权下分析日志、复现问题并提供帮助。</li>
@@ -561,13 +569,8 @@
                 <td data-label="可选性与控制">保障后台更新所需。通知提供“停止”快捷操作。</td>
               </tr>
               <tr>
-                <td data-label="权限">SEND_SMS, RECEIVE_SMS, READ_SMS（可选）</td>
-                <td data-label="用途">在数据网络不可用时发送/解析短信中的坐标。</td>
-                <td data-label="可选性与控制">默认关闭，仅在您启用并授予权限后使用；可随时停用或撤回权限。</td>
-              </tr>
-              <tr>
                 <td data-label="权限">POST_NOTIFICATIONS（Android 13+）</td>
-                <td data-label="用途">显示前台服务状态、定位请求提醒、短信解析结果。</td>
+                <td data-label="用途">显示前台服务状态、定位请求提醒。</td>
                 <td data-label="可选性与控制">可拒绝通知，应用仍可运行但无法收到提醒；可在系统设置管理。</td>
               </tr>
               <tr>
@@ -589,7 +592,7 @@
           <ul>
             <li><strong>访问与复制</strong>：在应用内查看近期位置。如需导出服务器记录，请联系客服，我们将在 30 天内回复。</li>
             <li><strong>更正</strong>：可在应用中修改昵称、设备名称、联系人。如需修改服务器数据，可联系支持。</li>
-            <li><strong>删除</strong>：随时清除本地历史/短信记录，退出群组，卸载应用，或向支持请求彻底删除。</li>
+            <li><strong>删除</strong>：随时清除本地历史记录，退出群组，卸载应用，或向支持请求彻底删除。</li>
             <li><strong>权限管理</strong>：通过系统设置或“隐私与权限中心”撤回已授予的权限。</li>
             <li><strong>数据携带</strong>：联系人支持导出 JSON；其他数据可联系支持申请导出。</li>
           </ul>
@@ -633,6 +636,33 @@
           <p>当功能或法律发生重大变化时，我们将更新政策并在应用内提示。更新生效后继续使用视为接受新政策。</p>
         </section>
 
+        <section id="data-deletion-zh">
+          <h2>数据删除请求</h2>
+          <p><strong>如何删除您的数据：</strong></p>
+          <ol>
+            <li>发送邮件至：<strong><a href="mailto:famliyfinder.home22@gmail.com">famliyfinder.home22@gmail.com</a></strong></li>
+            <li>邮件主题：<strong>Family Finder - Data Deletion Request</strong></li>
+            <li>邮件内容必须包含：
+              <ul>
+                <li>您的家庭组ID</li>
+                <li>您希望删除的具体数据类型</li>
+                <li>确认删除请求</li>
+              </ul>
+            </li>
+          </ol>
+
+          <h3>将被删除的数据类型</h3>
+          <ul>
+            <li>位置历史记录</li>
+            <li>家庭成员联系人信息</li>
+            <li>设备标识符和推送令牌</li>
+            <li>应用设置和偏好</li>
+          </ul>
+
+          <h3>处理时间</h3>
+          <p>我们将在收到您的删除请求后 <strong>7 天内</strong> 处理并删除您的数据。删除后数据无法恢复。</p>
+        </section>
+
         <section id="contact-zh">
           <h2>联系我们</h2>
           <p>如对隐私或数据处理有疑问、投诉或请求，请通过以下方式联系：</p>
@@ -655,7 +685,7 @@
           <div class="summary">
             <div>
               <strong>Kernfunktionen</strong>
-              Präzise und ungefähre Standortfreigabe innerhalb autorisierter Familiengruppen, optionaler SMS-Fallback bei Netzausfall, keine Werbung oder Profilbildung.
+              Präzise und ungefähre Standortfreigabe innerhalb autorisierter Familiengruppen, keine Werbung oder Profilbildung.
             </div>
             <div>
               <strong>Datensicherheit</strong>
@@ -693,7 +723,7 @@
             <tbody>
               <tr>
                 <td data-label="Kategorie">Standortdaten</td>
-                <td data-label="Felder">GPS-/Netz-Koordinaten, Höhe, Geschwindigkeit, Richtung, Genauigkeit, Zeitstempel, Ursprungskanal (Vordergrund, Hintergrund, WorkManager, Firebase, SMS), Gruppen-ID.</td>
+                <td data-label="Felder">GPS-/Netz-Koordinaten, Höhe, Geschwindigkeit, Richtung, Genauigkeit, Zeitstempel, Ursprungskanal (Vordergrund, Hintergrund, WorkManager, Firebase), Gruppen-ID.</td>
                 <td data-label="Zweck">Echtzeitfreigabe, Antworten auf Anfragen, Erstellung der Historie, Zuverlässigkeitswarnungen.</td>
                 <td data-label="Speicherung &amp; Aufbewahrung">Firebase Cloud Firestore (<code>family_groups</code>, <code>location_requests</code>, <code>location_responses</code>) bis zu 30 Tage, regelmäßige Bereinigung; lokal in SharedPreferences (standardmäßig 24 Stunden, einstellbar 1–365 Tage) sowie Standortverlauf bis 30 Tage; Transport über HTTPS/TLS.</td>
                 <td data-label="Kontrolle">Freigabe auf der Startseite pausieren, Vorder-/Hintergrundmodus in den Einstellungen steuern, Verlauf pro Kontakt oder komplett löschen, Gruppenverlassen oder Deinstallation stoppt Uploads.</td>
@@ -705,17 +735,10 @@
                 <td data-label="Speicherung &amp; Aufbewahrung">Firebase Cloud Firestore (<code>family_groups/&lt;groupId&gt;/members</code>). Löschung unmittelbar nach Austritt oder manueller Entfernung; inaktive Einträge werden aufgeräumt.</td>
                 <td data-label="Kontrolle">Mitgliederverwaltung oder Gruppenaustritt in der App; Neuinstallation erstellt eine neue Geräte-ID.</td>
               </tr>
-              <tr>
-                <td data-label="Kategorie">SMS-Fallback</td>
-                <td data-label="Felder">Auslösende Nummer, aus SMS extrahierte Koordinaten, Genauigkeit, Zeitstempel, bereinigter Text (max. 60 Zeichen).</td>
-                <td data-label="Zweck">Anzeige von SMS-Koordinaten, wenn die Datenverbindung ausfällt.</td>
-                <td data-label="Speicherung &amp; Aufbewahrung">Nur lokal in SharedPreferences gespeichert, Standard 24 Stunden (einstellbar 1–365 Tage) oder jederzeit löschbar; keine Server-Uploads.</td>
-                <td data-label="Kontrolle">SMS-Berechtigungen müssen aktiv erteilt werden; Funktion kann in der App deaktiviert werden, Berechtigungen lassen sich im System widerrufen.</td>
-              </tr>
-              <tr>
+                <tr>
                 <td data-label="Kategorie">Familienkontakte</td>
                 <td data-label="Felder">Von Ihnen eingegebene Namen &amp; Telefonnummern, interne Kontakt-ID.</td>
-                <td data-label="Zweck">Schnellauswahl für Anfragen oder SMS-Fallback, Nummernabgleich.</td>
+                <td data-label="Zweck">Schnellauswahl für Anfragen, Nummernabgleich.</td>
                 <td data-label="Speicherung &amp; Aufbewahrung">Nur in SharedPreferences; optionaler Export in eine von Ihnen gewählte JSON-Datei; keine Übertragung in die Cloud.</td>
                 <td data-label="Kontrolle">Kontakte können hinzugefügt, bearbeitet, gelöscht oder komplett entfernt werden; exportierte Dateien löschen Sie selbst.</td>
               </tr>
@@ -743,7 +766,7 @@
         <section id="how-we-use-de">
           <h2>Wie wir Daten nutzen</h2>
           <ul>
-            <li>Echtzeitfreigabe, Historie, Gruppenverwaltung, Benachrichtigungen, SMS-Fallback und lokalisierte Oberfläche bereitstellen.</li>
+            <li>Echtzeitfreigabe, Historie, Gruppenverwaltung, Benachrichtigungen und lokalisierte Oberfläche bereitstellen.</li>
             <li>Zuverlässigkeit optimieren, indem wir anhand von Telemetrie das geeignete Übertragungsverfahren wählen.</li>
             <li>Sicherheit und Missbrauchsprävention durch Erkennung ungewöhnlicher Anfragen und ungültiger Tokens.</li>
             <li>Support leisten, indem wir mit Ihrer Zustimmung Protokolle analysieren.</li>
@@ -784,13 +807,8 @@
                 <td data-label="Optionen">Notwendig für verlässliche Updates, enthält immer eine Stopp-Aktion.</td>
               </tr>
               <tr>
-                <td data-label="Berechtigung">SEND_SMS, RECEIVE_SMS, READ_SMS (optional)</td>
-                <td data-label="Zweck">SMS-Fallback zum Senden/Empfangen von Koordinaten.</td>
-                <td data-label="Optionen">Nur nach aktiver Zustimmung verwendet; jederzeit deaktivierbar.</td>
-              </tr>
-              <tr>
                 <td data-label="Berechtigung">POST_NOTIFICATIONS (Android 13+)</td>
-                <td data-label="Zweck">Statusanzeigen, Anfragen, SMS-Ergebnisse.</td>
+                <td data-label="Zweck">Statusanzeigen, Anfragen.</td>
                 <td data-label="Optionen">Ablehnbar; App funktioniert weiter, jedoch ohne Hinweise.</td>
               </tr>
               <tr>
@@ -856,7 +874,34 @@
           <p>Änderungen an Funktionen oder Rechtslage führen zu Aktualisierungen dieser Richtlinie. Wichtige Änderungen kündigen wir in der App an. Weitere Nutzung gilt als Zustimmung.</p>
         </section>
 
-        <section id="contact-de">
+        <section id="data-deletion-de">
+          <h2>Datenlöschungsanfrage</h2>
+          <p><strong>So fordern Sie die Löschung Ihrer Daten an:</strong></p>
+          <ol>
+            <li>Senden Sie eine E-Mail an: <strong><a href="mailto:famliyfinder.home22@gmail.com">famliyfinder.home22@gmail.com</a></strong></li>
+            <li>E-Mail-Betreff: <strong>Family Finder - Data Deletion Request</strong></li>
+            <li>E-Mail-Inhalt muss enthalten:
+              <ul>
+                <li>Ihre Familiengruppen-ID</li>
+                <li>Spezifische Datentypen, die gelöscht werden sollen</li>
+                <li>Bestätigung der Löschanfrage</li>
+              </ul>
+            </li>
+          </ol>
+
+          <h3>Zu löschende Datentypen</h3>
+          <ul>
+            <li>Standortverläufe</li>
+            <li>Kontaktinformationen von Familienmitgliedern</li>
+            <li>Geräte-IDs und Push-Token</li>
+            <li>App-Einstellungen und Präferenzen</li>
+          </ul>
+
+          <h3>Verarbeitungszeit</h3>
+          <p>Wir bearbeiten Ihre Löschanfrage innerhalb von <strong>7 Tagen</strong> nach Erhalt. Einmal gelöschte Daten können nicht wiederhergestellt werden.</p>
+        </section>
+
+      <section id="contact-de">
           <h2>Kontakt</h2>
           <p>Fragen oder Anliegen zum Datenschutz richten Sie bitte an:</p>
           <ul>
@@ -878,7 +923,7 @@
           <div class="summary">
             <div>
               <strong>Función principal</strong>
-              Compartir ubicaciones precisas y aproximadas entre familiares autorizados, canal SMS opcional cuando no hay datos, sin publicidad ni creación de perfiles.
+              Compartir ubicaciones precisas y aproximadas entre familiares autorizados, sin publicidad ni creación de perfiles.
             </div>
             <div>
               <strong>Seguridad de datos</strong>
@@ -916,7 +961,7 @@
             <tbody>
               <tr>
                 <td data-label="Categoría">Datos de ubicación</td>
-                <td data-label="Campos">Latitud/longitud GPS o de red, altitud, velocidad, rumbo, precisión, marca temporal, canal de origen (primer plano, fondo, WorkManager, Firebase, SMS), ID del grupo.</td>
+                <td data-label="Campos">Latitud/longitud GPS o de red, altitud, velocidad, rumbo, precisión, marca temporal, canal de origen (primer plano, fondo, WorkManager, Firebase), ID del grupo.</td>
                 <td data-label="Finalidad">Compartir en tiempo real, responder solicitudes, construir el historial y mejorar alertas.</td>
                 <td data-label="Almacenamiento y retención">Firebase Cloud Firestore (<code>family_groups</code>, <code>location_requests</code>, <code>location_responses</code>) hasta 30 días con eliminación automática; en SharedPreferences locales se guardan las últimas 24 h (configurable 1–365 días) y el historial hasta 30 días; siempre bajo HTTPS/TLS.</td>
                 <td data-label="Controles">Pausar desde la pantalla principal; alternar modos en Ajustes; borrar historial por contacto o completo; al salir del grupo o desinstalar se detienen los envíos.</td>
@@ -928,14 +973,7 @@
                 <td data-label="Almacenamiento y retención">Firebase Cloud Firestore (<code>family_groups/&lt;groupId&gt;/members</code>). Se elimina al salir o tras limpieza de inactivos.</td>
                 <td data-label="Controles">Gestionar miembros o abandonar el grupo in-app; reinstalar genera una nueva ID de dispositivo.</td>
               </tr>
-              <tr>
-                <td data-label="Categoría">Ubicaciones SMS</td>
-                <td data-label="Campos">Número emisor, coordenadas extraídas, precisión, hora, fragmento de texto depurado (hasta 60 caracteres).</td>
-                <td data-label="Finalidad">Mostrar coordenadas enviadas por SMS cuando no hay datos.</td>
-                <td data-label="Almacenamiento y retención">Solo en SharedPreferences locales, con retención predeterminada 24 h ajustable 1–365 días; nunca se sube al servidor.</td>
-                <td data-label="Controles">Requiere permisos SMS explícitos; puede desactivarse o revocarse en cualquier momento.</td>
-              </tr>
-              <tr>
+                <tr>
                 <td data-label="Categoría">Contactos familiares</td>
                 <td data-label="Campos">Nombre y teléfono introducidos por usted, ID interno.</td>
                 <td data-label="Finalidad">Facilitar solicitudes y coincidencias de números.</td>
@@ -966,7 +1004,7 @@
         <section id="how-we-use-es">
           <h2>Uso de los datos</h2>
           <ul>
-            <li>Ofrecer funciones clave: compartición en tiempo real, historial, gestión de grupos, notificaciones, SMS de respaldo e interfaz multilingüe.</li>
+            <li>Ofrecer funciones clave: compartición en tiempo real, historial, gestión de grupos, notificaciones e interfaz multilingüe.</li>
             <li>Mejorar la fiabilidad seleccionando el canal más adecuado según la telemetría.</li>
             <li>Seguridad y prevención de abuso detectando patrones inusuales o tokens inválidos.</li>
             <li>Soporte al cliente analizando registros con su consentimiento.</li>
@@ -1005,11 +1043,6 @@
                 <td data-label="Permiso">FOREGROUND_SERVICE, FOREGROUND_SERVICE_LOCATION</td>
                 <td data-label="Finalidad">Mostrar notificación persistente.</td>
                 <td data-label="Opciones">Necesario para actualizaciones fiables, siempre con botón de parada.</td>
-              </tr>
-              <tr>
-                <td data-label="Permiso">SEND_SMS, RECEIVE_SMS, READ_SMS (opcional)</td>
-                <td data-label="Finalidad">Permitir el respaldo mediante SMS.</td>
-                <td data-label="Opciones">Desactivado por defecto; puede revocarse cuando quiera.</td>
               </tr>
               <tr>
                 <td data-label="Permiso">POST_NOTIFICATIONS (Android 13+)</td>
@@ -1079,7 +1112,34 @@
           <p>Informaremos sobre cambios relevantes en la app o en la legislación. Al seguir usando la app tras la fecha efectiva acepta la versión actualizada.</p>
         </section>
 
-        <section id="contact-es">
+        <section id="data-deletion-es">
+          <h2>Solicitud de Eliminación de Datos</h2>
+          <p><strong>Cómo solicitar la eliminación de sus datos:</strong></p>
+          <ol>
+            <li>Envíe un correo electrónico a: <strong><a href="mailto:famliyfinder.home22@gmail.com">famliyfinder.home22@gmail.com</a></strong></li>
+            <li>Asunto del correo: <strong>Family Finder - Data Deletion Request</strong></li>
+            <li>El contenido del correo debe incluir:
+              <ul>
+                <li>Su ID de grupo familiar</li>
+                <li>Tipos específicos de datos que desea eliminar</li>
+                <li>Confirmación de la solicitud de eliminación</li>
+              </ul>
+            </li>
+          </ol>
+
+          <h3>Tipos de Datos que se Eliminarán</h3>
+          <ul>
+            <li>Registros del historial de ubicaciones</li>
+            <li>Información de contacto de miembros de la familia</li>
+            <li>Identificadores del dispositivo y tokens de push</li>
+            <li>Configuración y preferencias de la aplicación</li>
+          </ul>
+
+          <h3>Tiempo de Procesamiento</h3>
+          <p>Procesaremos su solicitud de eliminación dentro de los <strong>7 días</strong> posteriores a su recepción. Una vez eliminados, los datos no se pueden recuperar.</p>
+        </section>
+
+      <section id="contact-es">
           <h2>Contacto</h2>
           <p>Para dudas o solicitudes de privacidad, contáctenos:</p>
           <ul>
@@ -1101,7 +1161,7 @@
           <div class="summary">
             <div>
               <strong>Fonction principale</strong>
-              Partage d'emplacements précis ou approximatifs entre membres autorisés, canal SMS de secours, aucune publicité ni profilage.
+              Partage d'emplacements précis ou approximatifs entre membres autorisés, aucune publicité ni profilage.
             </div>
             <div>
               <strong>Sécurité des données</strong>
@@ -1139,7 +1199,7 @@
             <tbody>
               <tr>
                 <td data-label="Catégorie">Données de localisation</td>
-                <td data-label="Champs">Latitude/longitude (GPS ou réseau), altitude, vitesse, cap, précision, horodatage, canal (premier plan, arrière-plan, WorkManager, Firebase, SMS), ID de groupe.</td>
+                <td data-label="Champs">Latitude/longitude (GPS ou réseau), altitude, vitesse, cap, précision, horodatage, canal (premier plan, arrière-plan, WorkManager, Firebase), ID de groupe.</td>
                 <td data-label="Finalité">Partage en temps réel, réponses aux demandes, historique, alertes de fiabilité.</td>
                 <td data-label="Stockage &amp; conservation">Firebase Cloud Firestore (<code>family_groups</code>, <code>location_requests</code>, <code>location_responses</code>) ≤30 jours avec purge; SharedPreferences locale conserve 24 h (1–365 jours configurables) et l'historique 30 jours; transferts via HTTPS/TLS.</td>
                 <td data-label="Contrôles">Pause rapide, réglages avant/arrière-plan, suppression par contact ou globale, sortie du groupe ou désinstallation met fin aux envois.</td>
@@ -1151,14 +1211,7 @@
                 <td data-label="Stockage &amp; conservation">Firebase Cloud Firestore (<code>family_groups/&lt;groupId&gt;/members</code>). Suppression à la sortie ou après inactivité prolongée.</td>
                 <td data-label="Contrôles">Gestion dans l'application; réinstallation génère une nouvelle ID.</td>
               </tr>
-              <tr>
-                <td data-label="Catégorie">Fallback SMS</td>
-                <td data-label="Champs">Numéro déclencheur, coordonnées extraites, précision, horodatage, extrait nettoyé (≤60 caractères).</td>
-                <td data-label="Finalité">Afficher les coordonnées envoyées par SMS en cas d'absence de données.</td>
-                <td data-label="Stockage &amp; conservation">Stockage local uniquement, 24 h par défaut (1–365 jours). Jamais téléversé.</td>
-                <td data-label="Contrôles">Autorisations SMS requises; peut être désactivé ou révoqué.</td>
-              </tr>
-              <tr>
+                  <tr>
                 <td data-label="Catégorie">Contacts familiaux</td>
                 <td data-label="Champs">Nom et numéro saisis, ID interne.</td>
                 <td data-label="Finalité">Sélection rapide et correspondance de numéros.</td>
@@ -1189,7 +1242,7 @@
         <section id="how-we-use-fr">
           <h2>Utilisation des données</h2>
           <ul>
-            <li>Fournir les fonctionnalités : partage en temps réel, historique, gestion de groupe, notifications, SMS de secours, interface multilingue.</li>
+            <li>Fournir les fonctionnalités : partage en temps réel, historique, gestion de groupe, notifications, interface multilingue.</li>
             <li>Améliorer la fiabilité grâce à la sélection dynamique du canal.</li>
             <li>Prévenir les abus en détectant les comportements anormaux.</li>
             <li>Assurer le support client avec votre accord.</li>
@@ -1228,11 +1281,6 @@
                 <td data-label="Autorisation">FOREGROUND_SERVICE, FOREGROUND_SERVICE_LOCATION</td>
                 <td data-label="Objet">Notification persistante du suivi.</td>
                 <td data-label="Options">Indispensable, contient un bouton d'arrêt.</td>
-              </tr>
-              <tr>
-                <td data-label="Autorisation">SEND_SMS, RECEIVE_SMS, READ_SMS (optionnel)</td>
-                <td data-label="Objet">Permettre le secours par SMS.</td>
-                <td data-label="Options">Activé uniquement après consentement; révocable.</td>
               </tr>
               <tr>
                 <td data-label="Autorisation">POST_NOTIFICATIONS (Android 13+)</td>
@@ -1302,7 +1350,34 @@
           <p>Nous publierons une notification si la politique change. L'utilisation continue après l'entrée en vigueur vaut acceptation.</p>
         </section>
 
-        <section id="contact-fr">
+        <section id="data-deletion-fr">
+          <h2>Demande de Suppression de Données</h2>
+          <p><strong>Comment demander la suppression de vos données :</strong></p>
+          <ol>
+            <li>Envoyez un e-mail à : <strong><a href="mailto:famliyfinder.home22@gmail.com">famliyfinder.home22@gmail.com</a></strong></li>
+            <li>Sujet de l'e-mail : <strong>Family Finder - Data Deletion Request</strong></li>
+            <li>Le contenu de l'e-mail doit inclure :
+              <ul>
+                <li>Votre ID de groupe familial</li>
+                <li>Types de données spécifiques à supprimer</li>
+                <li>Confirmation de la demande de suppression</li>
+              </ul>
+            </li>
+          </ol>
+
+          <h3>Types de Données qui Seront Supprimées</h3>
+          <ul>
+            <li>Enregistrements de l'historique de localisation</li>
+            <li>Informations de contact des membres de la famille</li>
+            <li>Identifiants de l'appareil et tokens push</li>
+            <li>Paramètres et préférences de l'application</li>
+          </ul>
+
+          <h3>Délai de Traitement</h3>
+          <p>Nous traiterons votre demande de suppression dans les <strong>7 jours</strong> suivant sa réception. Une fois supprimées, les données ne peuvent pas être récupérées.</p>
+        </section>
+
+      <section id="contact-fr">
           <h2>Contact</h2>
           <p>Pour toute question ou demande :</p>
           <ul>
@@ -1324,7 +1399,7 @@
           <div class="summary">
             <div>
               <strong>Funzioni principali</strong>
-              Condivisione della posizione precisa/approssimata tra membri autorizzati, canale SMS opzionale in assenza di rete dati, nessuna pubblicità o profilazione.
+              Condivisione della posizione precisa/approssimata tra membri autorizzati, nessuna pubblicità o profilazione.
             </div>
             <div>
               <strong>Sicurezza dei dati</strong>
@@ -1362,7 +1437,7 @@
             <tbody>
               <tr>
                 <td data-label="Categoria">Dati di posizione</td>
-                <td data-label="Campi">Latitudine/longitudine GPS o rete, altitudine, velocità, direzione, accuratezza, timestamp, canale (primo piano, background, WorkManager, Firebase, SMS), ID gruppo.</td>
+                <td data-label="Campi">Latitudine/longitudine GPS o rete, altitudine, velocità, direzione, accuratezza, timestamp, canale (primo piano, background, WorkManager, Firebase), ID gruppo.</td>
                 <td data-label="Finalità">Condivisione in tempo reale, risposte alle richieste, storico, avvisi di affidabilità.</td>
                 <td data-label="Archiviazione e conservazione">Firebase Cloud Firestore (<code>family_groups</code>, <code>location_requests</code>, <code>location_responses</code>) fino a 30 giorni con pulizia automatica; SharedPreferences locali (24 ore predefinite, regolabili 1–365 giorni) e storico fino a 30 giorni; trasporto cifrato.</td>
                 <td data-label="Controlli">Pausa rapida, impostazioni per primi piano/background, cancellazione per contatto o totale, uscita dal gruppo o disinstallazione interrompono l'invio.</td>
@@ -1374,14 +1449,7 @@
                 <td data-label="Archiviazione e conservazione">Firebase Cloud Firestore (<code>family_groups/&lt;groupId&gt;/members</code>). Cancellazione immediata all'uscita o dopo inattività prolungata.</td>
                 <td data-label="Controlli">Gestione in-app; nuova installazione crea un nuovo ID dispositivo.</td>
               </tr>
-              <tr>
-                <td data-label="Categoria">Fallback SMS</td>
-                <td data-label="Campi">Numero mittente, coordinate estratte, accuratezza, timestamp, testo sanificato (≤60 caratteri).</td>
-                <td data-label="Finalità">Mostrare coordinate quando la rete dati non è disponibile.</td>
-                <td data-label="Archiviazione e conservazione">Solo locale, 24 h di default (1–365 giorni), mai caricato sul server.</td>
-                <td data-label="Controlli">Richiede permessi SMS espliciti; disattivabile in qualsiasi momento.</td>
-              </tr>
-              <tr>
+                    <tr>
                 <td data-label="Categoria">Contatti familiari</td>
                 <td data-label="Campi">Nome e numero inseriti, ID interno.</td>
                 <td data-label="Finalità">Selezione rapida e confronto numeri.</td>
@@ -1412,7 +1480,7 @@
         <section id="how-we-use-it">
           <h2>Uso dei dati</h2>
           <ul>
-            <li>Fornire funzioni: condivisione real-time, storico, gestione gruppi, notifiche, SMS di emergenza, interfaccia multilingue.</li>
+            <li>Fornire funzioni: condivisione real-time, storico, gestione gruppi, notifiche, interfaccia multilingue.</li>
             <li>Migliorare l'affidabilità scegliendo dinamicamente il canale.</li>
             <li>Prevenire abusi rilevando richieste anomale o token non validi.</li>
             <li>Supportare gli utenti analizzando log con il loro consenso.</li>
@@ -1451,11 +1519,6 @@
                 <td data-label="Autorizzazione">FOREGROUND_SERVICE, FOREGROUND_SERVICE_LOCATION</td>
                 <td data-label="Finalità">Mostrare una notifica persistente durante il tracciamento.</td>
                 <td data-label="Opzioni">Indispensabile per aggiornamenti affidabili, con pulsante di stop.</td>
-              </tr>
-              <tr>
-                <td data-label="Autorizzazione">SEND_SMS, RECEIVE_SMS, READ_SMS (opzionale)</td>
-                <td data-label="Finalità">Attivare il fallback tramite SMS.</td>
-                <td data-label="Opzioni">Disattivato di default; revocabile.</td>
               </tr>
               <tr>
                 <td data-label="Autorizzazione">POST_NOTIFICATIONS (Android 13+)</td>
@@ -1525,7 +1588,34 @@
           <p>In caso di modifiche importanti informeremo gli utenti. L'uso continuato dopo la data di entrata in vigore implica l'accettazione.</p>
         </section>
 
-        <section id="contact-it">
+        <section id="data-deletion-it">
+          <h2>Richiesta di Cancellazione Dati</h2>
+          <p><strong>Come richiedere la cancellazione dei tuoi dati:</strong></p>
+          <ol>
+            <li>Invia un'email a: <strong><a href="mailto:famliyfinder.home22@gmail.com">famliyfinder.home22@gmail.com</a></strong></li>
+            <li>Oggetto dell'email: <strong>Family Finder - Data Deletion Request</strong></li>
+            <li>Il contenuto dell'email deve includere:
+              <ul>
+                <li>Il tuo ID del gruppo familiare</li>
+                <li>Tipi specifici di dati da cancellare</li>
+                <li>Conferma della richiesta di cancellazione</li>
+              </ul>
+            </li>
+          </ol>
+
+          <h3>Tipi di Dati che Saranno Cancellati</h3>
+          <ul>
+            <li>Record della cronologia delle posizioni</li>
+            <li>Informazioni di contatto dei membri della famiglia</li>
+            <li>Identificatori del dispositivo e token push</li>
+            <li>Impostazioni e preferenze dell'app</li>
+          </ul>
+
+          <h3>Tempo di Elaborazione</h3>
+          <p>Elaboreremo la tua richiesta di cancellazione entro <strong>7 giorni</strong> dal suo ricevimento. Una volta cancellati, i dati non possono essere recuperati.</p>
+        </section>
+
+      <section id="contact-it">
           <h2>Contatti</h2>
           <p>Per richieste o dubbi sulla privacy:</p>
           <ul>
